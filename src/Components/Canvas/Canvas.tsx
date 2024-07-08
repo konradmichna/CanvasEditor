@@ -2,13 +2,13 @@ import React from "react";
 import { TextEditor } from "./TextEditor";
 import { ImageEditor } from "./ImageEditor";
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../../constants/canvasSize";
-import startImage from "../../assets/Images/startImage.png";
 
 interface CanvasProps {
   elements: any[];
   removeElement: (id: number) => void;
   background: string | null;
-  onElementClick: (id: number) => void;
+  onElementClick: (id: number | null) => void;
+  setTextContent: (id: number, text: string) => void;
 }
 
 export const Canvas: React.FC<CanvasProps> = ({
@@ -16,40 +16,38 @@ export const Canvas: React.FC<CanvasProps> = ({
   removeElement,
   background,
   onElementClick,
+  setTextContent,
 }) => {
+  const hasElements = elements.length > 0;
+
   return (
     <div
-      className={`relative w-[${CANVAS_WIDTH}px] h-[${CANVAS_HEIGHT}px] bg-center bg-cover`}
+      className={`relative w-[${CANVAS_WIDTH}px] h-[${CANVAS_HEIGHT}px] ${
+        hasElements ? "bg-black50" : "bg-center bg-cover"
+      }`}
       style={{
-        backgroundImage: `url(${background || startImage})`,
+        backgroundImage: hasElements ? "none" : `url(${background})`,
       }}
+      onClick={() => onElementClick(null)}
     >
       {elements.map((element) =>
         element.type === "text" ? (
-          <div
+          <TextEditor
             key={element.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              onElementClick(element.id);
-            }}
-          >
-            <TextEditor
-              id={element.id}
-              isEditing={element.isEditing}
-              removeElement={removeElement}
-              onClickOutside={() => onElementClick(null)}
-            />
-          </div>
+            id={element.id}
+            isEditing={element.isEditing}
+            removeElement={removeElement}
+            onClickOutside={() => onElementClick(null)}
+            textContent={element.textContent}
+            setTextContent={setTextContent}
+            setEditing={onElementClick}
+          />
         ) : (
-          <div
+          <ImageEditor
             key={element.id}
-            onClick={(e) => {
-              e.stopPropagation();
-              onElementClick(element.id);
-            }}
-          >
-            <ImageEditor id={element.id} removeElement={removeElement} />
-          </div>
+            id={element.id}
+            removeElement={removeElement}
+          />
         )
       )}
     </div>

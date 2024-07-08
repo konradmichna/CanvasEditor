@@ -11,37 +11,26 @@ function App() {
   const [isImageAdded, setIsImageAdded] = useState(false);
 
   const addElement = (type: string) => {
-    const id = new Date().getTime();
-    setElements([...elements, { id, type, isEditing: true }]);
-    setBackground(null); // Ustawienie tła na null przy dodaniu nowego elementu
+    if (type === "text" && isTextAdded) return;
+    if (type === "image" && isImageAdded) return;
 
-    if (type === "text") {
-      setIsTextAdded(true);
-    } else if (type === "image") {
-      setIsImageAdded(true);
-    }
+    const id = new Date().getTime();
+    setElements([...elements, { id, type, isEditing: true, textContent: "" }]);
+    if (type === "text") setIsTextAdded(true);
+    if (type === "image") setIsImageAdded(true);
   };
 
   const removeElement = (id: number) => {
-    const element = elements.find((el) => el.id === id);
-    setElements(elements.filter((element) => element.id !== id));
-
-    if (element.type === "text") {
+    const newElements = elements.filter((element) => element.id !== id);
+    setElements(newElements);
+    if (newElements.length === 0) {
+      setBackground(startImage);
       setIsTextAdded(false);
-    } else if (element.type === "image") {
       setIsImageAdded(false);
     }
-
-    if (elements.length === 1) {
-      setBackground(startImage); // Przywrócenie startowego obrazu, gdy nie ma elementów
-    }
   };
 
-  const changeBackground = (bg: string) => {
-    setBackground(bg);
-  };
-
-  const handleElementClick = (id: number) => {
+  const onElementClick = (id: number | null) => {
     setElements(
       elements.map((element) =>
         element.id === id
@@ -51,20 +40,26 @@ function App() {
     );
   };
 
-  const handleClickOutside = () => {
-    setElements(elements.map((element) => ({ ...element, isEditing: false })));
+  const setTextContent = (id: number, text: string) => {
+    setElements(
+      elements.map((element) =>
+        element.id === id ? { ...element, textContent: text } : element
+      )
+    );
+  };
+
+  const changeBackground = (bg: string) => {
+    setBackground(bg);
   };
 
   return (
-    <div
-      className="flex flex-grow justify-center gap-6 p-8"
-      onClick={handleClickOutside}
-    >
+    <div className="flex justify-center gap-6 p-8">
       <Canvas
         elements={elements}
         removeElement={removeElement}
         background={background}
-        onElementClick={handleElementClick}
+        onElementClick={onElementClick}
+        setTextContent={setTextContent}
       />
       <div className="flex flex-col">
         <Header />

@@ -1,13 +1,15 @@
 interface ColorButtonProps {
   color: string;
   isSelected: boolean;
-  onClick: () => void;
+  onMouseDown: (e: React.MouseEvent) => void;
+  // onClick: () => void;
 }
 
 export const ColorButton: React.FC<ColorButtonProps> = ({
   color,
   isSelected,
-  onClick,
+  onMouseDown,
+  // onClick,
 }) => {
   return (
     <button
@@ -18,7 +20,8 @@ export const ColorButton: React.FC<ColorButtonProps> = ({
         backgroundColor: color,
         boxShadow: isSelected ? "0 0 0 2px #fff" : "none",
       }}
-      onClick={onClick}
+      onMouseDown={onMouseDown}
+      // onClick={onClick}
     ></button>
   );
 };

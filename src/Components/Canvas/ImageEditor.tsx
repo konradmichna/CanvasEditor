@@ -3,6 +3,7 @@ import { Rnd } from "react-rnd";
 import { DeleteIcon } from "../../assets/Icons/DeleteIcon";
 import { MoveIcon } from "../../assets/Icons/MoveIcon";
 import HandShake from "../../assets/Images/handshake 1.png";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants/canvasSize";
 
 interface ImageEditorProps {
   id: number;
@@ -16,7 +17,12 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
   return (
     <Rnd
       bounds="parent"
-      default={{ x: 50, y: 50, width: 200, height: 200 }}
+      default={{
+        x: 50,
+        y: 50,
+        width: 200,
+        height: 200,
+      }}
       minWidth={100}
       minHeight={100}
       dragHandleClassName="move-icon"
@@ -38,7 +44,10 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
         <div className="absolute -top-3 -right-[14px] p-1 cursor-pointer bg-white rounded-full">
           <DeleteIcon
             className="w-[18px] h-[18px] text-red"
-            onClick={() => removeElement(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              removeElement(id);
+            }}
           />
         </div>
         <div className="w-full h-full flex justify-center items-center">
