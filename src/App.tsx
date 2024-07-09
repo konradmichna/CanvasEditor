@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Canvas } from "./Components/Canvas/Canvas";
 import { Header } from "./Components/Header/Header";
 import { Sidebar } from "./Components/Sidebar/Sidebar";
-import { Alert } from "./Components/Alert/Alert"; // Import Alert
+import { Alert } from "./Components/Alert/Alert"; // Importujemy Alert
 import startImage from "./assets/Images/startImage.png";
 import html2canvas from "html2canvas";
 
@@ -12,7 +12,7 @@ function App() {
   const [isTextAdded, setIsTextAdded] = useState(false);
   const [isImageAdded, setIsImageAdded] = useState(false);
   const [userBackground, setUserBackground] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false); // State for alert
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const addElement = (type: string, imageUrl?: string) => {
     if (type === "text" && isTextAdded) return;
@@ -83,14 +83,11 @@ function App() {
     setIsTextAdded(false);
     setIsImageAdded(false);
     setUserBackground(false);
-    setShowAlert(false); // Hide alert after resetting
+    setShowAlert(false);
   };
 
   return (
-    <div className="flex justify-center gap-6 p-8 relative">
-      {showAlert && (
-        <Alert onConfirm={handleReset} onCancel={() => setShowAlert(false)} />
-      )}
+    <div className="flex justify-center gap-6 p-8">
       <Canvas
         elements={elements}
         removeElement={removeElement}
@@ -100,7 +97,7 @@ function App() {
         setTextContent={setTextContent}
       />
       <div className="flex flex-col">
-        <Header onReset={() => setShowAlert(true)} /> {/* Pass onReset */}
+        <Header onReset={() => setShowAlert(true)} />
         <Sidebar
           onAddText={() => addElement("text")}
           onAddImage={handleImageUpload}
@@ -110,6 +107,9 @@ function App() {
           onExport={handleExport}
         />
       </div>
+      {showAlert && (
+        <Alert onConfirm={handleReset} onCancel={() => setShowAlert(false)} />
+      )}
     </div>
   );
 }

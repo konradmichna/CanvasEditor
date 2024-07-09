@@ -9,7 +9,7 @@ interface AlertProps {
 
 export const Alert: React.FC<AlertProps> = ({ onConfirm, onCancel }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50   flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white rounded-[10px] shadow-lg relative w-[620px] py-10 px-32 gap-6 flex flex-col">
         <button
           className="absolute top-6 right-6 text-gray-500 hover:text-gray-700"

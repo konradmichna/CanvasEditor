@@ -11,7 +11,7 @@ interface SidebarProps {
   onChangeBackground: (bg: string) => void;
   isTextAdded: boolean;
   isImageAdded: boolean;
-  onExport: () => void; // Dodajemy tutaj
+  onExport: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -20,7 +20,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onChangeBackground,
   isTextAdded,
   isImageAdded,
-  onExport, // Dodajemy tutaj
+  onExport,
 }) => {
   const handleBackgroundChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
