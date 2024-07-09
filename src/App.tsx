@@ -2,12 +2,20 @@ import { useState } from "react";
 import { Canvas } from "./Components/Canvas/Canvas";
 import { Header } from "./Components/Header/Header";
 import { Sidebar } from "./Components/Sidebar/Sidebar";
-import { Alert } from "./Components/Alert/Alert"; // Importujemy Alert
+import { Alert } from "./Components/Alert/Alert";
 import startImage from "./assets/Images/startImage.png";
 import html2canvas from "html2canvas";
 
+interface Element {
+  id: number;
+  type: "text" | "image";
+  isEditing: boolean;
+  textContent?: string;
+  imageUrl?: string;
+}
+
 function App() {
-  const [elements, setElements] = useState<any[]>([]);
+  const [elements, setElements] = useState<Element[]>([]);
   const [background, setBackground] = useState<string | null>(startImage);
   const [isTextAdded, setIsTextAdded] = useState(false);
   const [isImageAdded, setIsImageAdded] = useState(false);
@@ -95,6 +103,8 @@ function App() {
         userBackground={userBackground}
         onElementClick={onElementClick}
         setTextContent={setTextContent}
+        setEditing={onElementClick}
+        onClickOutside={onElementClick}
       />
       <div className="flex flex-col">
         <Header onReset={() => setShowAlert(true)} />
