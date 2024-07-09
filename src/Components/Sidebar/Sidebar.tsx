@@ -11,6 +11,7 @@ interface SidebarProps {
   onChangeBackground: (bg: string) => void;
   isTextAdded: boolean;
   isImageAdded: boolean;
+  onExport: () => void; // Dodajemy tutaj
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -19,6 +20,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onChangeBackground,
   isTextAdded,
   isImageAdded,
+  onExport, // Dodajemy tutaj
 }) => {
   const handleBackgroundChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -72,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </label>
       </div>
       <div className="flex flex-grow justify-end">
-        <ExportButton />
+        <ExportButton onExport={onExport} /> {/* Aktualizujemy tutaj */}
       </div>
     </div>
   );

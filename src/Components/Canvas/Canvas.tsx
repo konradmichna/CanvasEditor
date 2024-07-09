@@ -24,6 +24,7 @@ export const Canvas: React.FC<CanvasProps> = ({
 
   return (
     <div
+      id="canvas"
       className={`relative w-[${CANVAS_WIDTH}px] h-[${CANVAS_HEIGHT}px] ${
         hasElements && !userBackground ? "bg-black50" : "bg-center bg-cover"
       }`}
