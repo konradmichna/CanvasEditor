@@ -7,7 +7,7 @@ import { ActionButton } from "./ActionButton";
 
 interface SidebarProps {
   onAddText: () => void;
-  onAddImage: () => void;
+  onAddImage: (file: File) => void;
   onChangeBackground: (bg: string) => void;
   isTextAdded: boolean;
   isImageAdded: boolean;
@@ -27,6 +27,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      onAddImage(e.target.files[0]);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full">
       <AddContent />
@@ -37,12 +43,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onClick={onAddText}
           disabled={isTextAdded}
         />
-        <ActionButton
-          icon={ImageIcon}
-          text="Image"
-          onClick={onAddImage}
-          disabled={isImageAdded}
-        />
+        <label className="relative">
+          <ActionButton
+            icon={ImageIcon}
+            text="Image"
+            onClick={() => {}}
+            disabled={isImageAdded}
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+        </label>
         <ActionButton icon={BackgroundIcon} text="Background">
           <input
             type="file"

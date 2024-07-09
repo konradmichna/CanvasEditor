@@ -2,24 +2,25 @@ import React from "react";
 import { Rnd } from "react-rnd";
 import { DeleteIcon } from "../../assets/Icons/DeleteIcon";
 import { MoveIcon } from "../../assets/Icons/MoveIcon";
-import HandShake from "../../assets/Images/handshake 1.png";
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants/canvasSize";
 
 interface ImageEditorProps {
   id: number;
   removeElement: (id: number) => void;
+  imageUrl: string;
 }
 
 export const ImageEditor: React.FC<ImageEditorProps> = ({
   id,
   removeElement,
+  imageUrl,
 }) => {
   return (
     <Rnd
       bounds="parent"
       default={{
-        x: 50,
-        y: 50,
+        x: (CANVAS_WIDTH - 200) / 2,
+        y: (CANVAS_HEIGHT - 200) / 2,
         width: 200,
         height: 200,
       }}
@@ -52,7 +53,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
         </div>
         <div className="w-full h-full flex justify-center items-center">
           <img
-            src={HandShake}
+            src={imageUrl}
             alt="Image"
             className="w-full h-full object-contain"
           />

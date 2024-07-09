@@ -10,12 +10,15 @@ function App() {
   const [isTextAdded, setIsTextAdded] = useState(false);
   const [isImageAdded, setIsImageAdded] = useState(false);
 
-  const addElement = (type: string) => {
+  const addElement = (type: string, imageUrl?: string) => {
     if (type === "text" && isTextAdded) return;
     if (type === "image" && isImageAdded) return;
 
     const id = new Date().getTime();
-    setElements([...elements, { id, type, isEditing: true, textContent: "" }]);
+    setElements([
+      ...elements,
+      { id, type, isEditing: true, textContent: "", imageUrl: imageUrl || "" },
+    ]);
     if (type === "text") setIsTextAdded(true);
     if (type === "image") setIsImageAdded(true);
   };
@@ -52,6 +55,11 @@ function App() {
     setBackground(bg);
   };
 
+  const handleImageUpload = (file: File) => {
+    const imageUrl = URL.createObjectURL(file);
+    addElement("image", imageUrl);
+  };
+
   return (
     <div className="flex justify-center gap-6 p-8">
       <Canvas
@@ -65,7 +73,7 @@ function App() {
         <Header />
         <Sidebar
           onAddText={() => addElement("text")}
-          onAddImage={() => addElement("image")}
+          onAddImage={handleImageUpload}
           onChangeBackground={changeBackground}
           isTextAdded={isTextAdded}
           isImageAdded={isImageAdded}

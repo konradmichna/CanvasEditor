@@ -47,6 +47,7 @@ export const Canvas: React.FC<CanvasProps> = ({
             key={element.id}
             id={element.id}
             removeElement={removeElement}
+            imageUrl={element.imageUrl}
           />
         )
       )}
