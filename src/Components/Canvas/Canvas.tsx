@@ -4,13 +4,7 @@ import { ImageEditor } from "./ImageEditor";
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../../constants/canvasSize";
 
 interface CanvasProps {
-  elements: {
-    id: number;
-    type: "text" | "image";
-    isEditing: boolean;
-    textContent?: string;
-    imageUrl?: string;
-  }[];
+  elements: any[];
   removeElement: (id: number) => void;
   background: string | null;
   userBackground: boolean;
@@ -59,8 +53,8 @@ export const Canvas = forwardRef<HTMLDivElement, CanvasProps>(
               id={element.id}
               isEditing={element.isEditing}
               removeElement={removeElement}
-              onClickOutside={() => onElementClick(null)}
-              textContent={element.textContent || ""}
+              onClickOutside={() => onClickOutside(element.id)}
+              textContent={element.textContent}
               setTextContent={setTextContent}
               setEditing={setEditing}
             />
@@ -70,9 +64,9 @@ export const Canvas = forwardRef<HTMLDivElement, CanvasProps>(
               id={element.id}
               isEditing={element.isEditing}
               removeElement={removeElement}
-              imageUrl={element.imageUrl || ""}
+              imageUrl={element.imageUrl}
               setEditing={setEditing}
-              onClickOutside={onClickOutside}
+              onClickOutside={() => onClickOutside(element.id)}
             />
           )
         )}

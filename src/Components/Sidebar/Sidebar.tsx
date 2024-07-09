@@ -56,7 +56,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            className={`absolute inset-0 w-full h-full opacity-0 ${
+              isImageAdded ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
           />
         </label>
         <label className="relative">
@@ -74,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </label>
       </div>
       <div className="flex flex-grow justify-end">
-        <ExportButton onExport={onExport} /> {/* Aktualizujemy tutaj */}
+        <ExportButton onExport={onExport} />
       </div>
     </div>
   );

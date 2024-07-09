@@ -8,10 +8,10 @@ import html2canvas from "html2canvas";
 
 interface Element {
   id: number;
-  type: "text" | "image";
+  type: string;
   isEditing: boolean;
-  textContent?: string;
-  imageUrl?: string;
+  textContent: string;
+  imageUrl: string;
 }
 
 function App() {
@@ -62,6 +62,24 @@ function App() {
     );
   };
 
+  const setEditing = (id: number) => {
+    setElements(
+      elements.map((element) =>
+        element.id === id
+          ? { ...element, isEditing: true }
+          : { ...element, isEditing: false }
+      )
+    );
+  };
+
+  const onClickOutside = (id: number) => {
+    setElements(
+      elements.map((element) =>
+        element.id === id ? { ...element, isEditing: false } : element
+      )
+    );
+  };
+
   const changeBackground = (bg: string) => {
     setBackground(bg);
     setUserBackground(true);
@@ -103,8 +121,8 @@ function App() {
         userBackground={userBackground}
         onElementClick={onElementClick}
         setTextContent={setTextContent}
-        setEditing={onElementClick}
-        onClickOutside={onElementClick}
+        setEditing={setEditing}
+        onClickOutside={onClickOutside}
       />
       <div className="flex flex-col">
         <Header onReset={() => setShowAlert(true)} />

@@ -28,11 +28,11 @@ body {
 }
 
 .btn-action {
-  @apply flex flex-col items-center justify-center rounded-[10px] p-3 bg-white97 gap-6 w-full h-[256px];
+  @apply flex flex-col items-center justify-center rounded-[10px] p-3 bg-white97 gap-6 w-full h-[256px] cursor-pointer;
 }
 
 .btn-action:hover {
-  @apply bg-black25 transition-all;
+  @apply bg-black25 transition-all cursor-pointer;
 }
 
 .btn-action:focus {

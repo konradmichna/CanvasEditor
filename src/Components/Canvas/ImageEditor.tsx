@@ -68,7 +68,9 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
     >
       <div
         ref={editorRef}
-        className="relative border-2 border-primary w-full h-full"
+        className={`relative w-full h-full ${
+          isEditing ? "border-2 border-primary" : ""
+        }`}
         onClick={(e) => {
           e.stopPropagation();
           setEditing(id);
