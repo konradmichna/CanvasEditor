@@ -9,6 +9,7 @@ function App() {
   const [background, setBackground] = useState<string | null>(startImage);
   const [isTextAdded, setIsTextAdded] = useState(false);
   const [isImageAdded, setIsImageAdded] = useState(false);
+  const [userBackground, setUserBackground] = useState<boolean>(false);
 
   const addElement = (type: string, imageUrl?: string) => {
     if (type === "text" && isTextAdded) return;
@@ -24,13 +25,12 @@ function App() {
   };
 
   const removeElement = (id: number) => {
+    const element = elements.find((element) => element.id === id);
     const newElements = elements.filter((element) => element.id !== id);
     setElements(newElements);
-    if (newElements.length === 0) {
-      setBackground(startImage);
-      setIsTextAdded(false);
-      setIsImageAdded(false);
-    }
+
+    if (element?.type === "text") setIsTextAdded(false);
+    if (element?.type === "image") setIsImageAdded(false);
   };
 
   const onElementClick = (id: number | null) => {
@@ -53,6 +53,7 @@ function App() {
 
   const changeBackground = (bg: string) => {
     setBackground(bg);
+    setUserBackground(true);
   };
 
   const handleImageUpload = (file: File) => {
@@ -66,6 +67,7 @@ function App() {
         elements={elements}
         removeElement={removeElement}
         background={background}
+        userBackground={userBackground}
         onElementClick={onElementClick}
         setTextContent={setTextContent}
       />

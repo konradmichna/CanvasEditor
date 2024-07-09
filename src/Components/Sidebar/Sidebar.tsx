@@ -57,13 +57,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
         </label>
-        <ActionButton icon={BackgroundIcon} text="Background">
+        <label className="relative">
+          <ActionButton
+            icon={BackgroundIcon}
+            text="Background"
+            onClick={() => {}}
+          />
           <input
             type="file"
+            accept="image/*"
             onChange={handleBackgroundChange}
-            className="hidden"
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
-        </ActionButton>
+        </label>
       </div>
       <div className="flex flex-grow justify-end">
         <ExportButton />

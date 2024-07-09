@@ -7,6 +7,7 @@ interface CanvasProps {
   elements: any[];
   removeElement: (id: number) => void;
   background: string | null;
+  userBackground: boolean;
   onElementClick: (id: number | null) => void;
   setTextContent: (id: number, text: string) => void;
 }
@@ -15,6 +16,7 @@ export const Canvas: React.FC<CanvasProps> = ({
   elements,
   removeElement,
   background,
+  userBackground,
   onElementClick,
   setTextContent,
 }) => {
@@ -23,10 +25,14 @@ export const Canvas: React.FC<CanvasProps> = ({
   return (
     <div
       className={`relative w-[${CANVAS_WIDTH}px] h-[${CANVAS_HEIGHT}px] ${
-        hasElements ? "bg-black50" : "bg-center bg-cover"
+        hasElements && !userBackground ? "bg-black50" : "bg-center bg-cover"
       }`}
       style={{
-        backgroundImage: hasElements ? "none" : `url(${background})`,
+        backgroundImage: userBackground
+          ? `url(${background})`
+          : hasElements
+          ? "none"
+          : `url(${background})`,
       }}
       onClick={() => onElementClick(null)}
     >
