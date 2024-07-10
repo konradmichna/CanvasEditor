@@ -27,7 +27,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   const [buttonColor, setButtonColor] = useState("black");
   const editorRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const ignoreClickRef = useRef(false); // To track clicks on ColorButton
+  const ignoreClickRef = useRef(false);
 
   const handleColorChange = (newColor: string) => {
     setButtonColor(newColor);
@@ -36,7 +36,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ignoreClickRef.current) {
-        ignoreClickRef.current = false; // Reset ignore flag
+        ignoreClickRef.current = false;
         return;
       }
 
@@ -127,7 +127,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
       {isEditing && (
         <div
           className="absolute -bottom-8 left-0 flex space-x-3 p-1"
-          onClick={(e) => e.stopPropagation()} // Prevent click from closing editor
+          onClick={(e) => e.stopPropagation()}
         >
           <ColorButton
             color="black"
