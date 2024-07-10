@@ -26,7 +26,7 @@ export const Canvas = forwardRef<HTMLDivElement, CanvasProps>(
       setEditing,
       onClickOutside,
     },
-    ref
+    ref,
   ) => {
     const hasElements = elements.length > 0;
 
@@ -35,14 +35,14 @@ export const Canvas = forwardRef<HTMLDivElement, CanvasProps>(
         ref={ref}
         id="canvas"
         className={`relative w-[${CANVAS_WIDTH}px] h-[${CANVAS_HEIGHT}px] ${
-          hasElements && !userBackground ? "bg-black50" : "bg-center bg-cover"
+          hasElements && !userBackground ? "bg-black50" : "bg-cover bg-center"
         }`}
         style={{
           backgroundImage: userBackground
             ? `url(${background})`
             : hasElements
-            ? "none"
-            : `url(${background})`,
+              ? "none"
+              : `url(${background})`,
         }}
         onClick={() => onElementClick(null)}
       >
@@ -68,9 +68,9 @@ export const Canvas = forwardRef<HTMLDivElement, CanvasProps>(
               setEditing={setEditing}
               onClickOutside={() => onClickOutside(element.id)}
             />
-          )
+          ),
         )}
       </div>
     );
-  }
+  },
 );

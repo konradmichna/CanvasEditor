@@ -68,8 +68,8 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
     >
       <div
         ref={editorRef}
-        className={`relative w-full h-full ${
-          isEditing ? "border-2 border-primary" : ""
+        className={`relative h-full w-full ${
+          isEditing ? "border-primary border-2" : ""
         }`}
         onClick={(e) => {
           e.stopPropagation();
@@ -78,12 +78,12 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
       >
         {isEditing && (
           <>
-            <div className="absolute -top-4 -left-4 p- move-icon cursor-move bg-white rounded-full">
-              <MoveIcon className="w-10 h-10 text-primary" />
+            <div className="p- move-icon absolute -left-4 -top-4 cursor-move rounded-full bg-white">
+              <MoveIcon className="text-primary h-10 w-10" />
             </div>
-            <div className="absolute -top-3 -right-[14px] p-1 cursor-pointer bg-white rounded-full">
+            <div className="absolute -right-[14px] -top-3 cursor-pointer rounded-full bg-white p-1">
               <DeleteIcon
-                className="w-[18px] h-[18px] text-red"
+                className="text-red h-[18px] w-[18px]"
                 onClick={(e) => {
                   e.stopPropagation();
                   removeElement(id);
@@ -92,11 +92,11 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
             </div>
           </>
         )}
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="flex h-full w-full items-center justify-center">
           <img
             src={imageUrl}
             alt="Image"
-            className="w-full h-full object-contain"
+            className="h-full w-full object-contain"
           />
         </div>
       </div>

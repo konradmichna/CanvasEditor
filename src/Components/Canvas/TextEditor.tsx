@@ -89,8 +89,8 @@ export const TextEditor: React.FC<TextEditorProps> = ({
     >
       <div
         ref={editorRef}
-        className={`w-full h-full relative ${
-          isEditing ? "bg-transparent border-primary border-2 py-3 px-7" : ""
+        className={`relative h-full w-full ${
+          isEditing ? "border-primary border-2 bg-transparent px-7 py-3" : ""
         }`}
         onClick={(e) => {
           e.stopPropagation();
@@ -99,12 +99,12 @@ export const TextEditor: React.FC<TextEditorProps> = ({
       >
         {isEditing && (
           <>
-            <div className="absolute -top-4 -left-4 p- move-icon cursor-move bg-white rounded-full">
-              <MoveIcon className="w-10 h-10 text-primary" />
+            <div className="p- move-icon absolute -left-4 -top-4 cursor-move rounded-full bg-white">
+              <MoveIcon className="text-primary h-10 w-10" />
             </div>
-            <div className="absolute -top-3 -right-[14px] p-1 cursor-pointer bg-white rounded-full">
+            <div className="absolute -right-[14px] -top-3 cursor-pointer rounded-full bg-white p-1">
               <DeleteIcon
-                className="w-[18px] h-[18px] text-red"
+                className="text-red h-[18px] w-[18px]"
                 onClick={(e) => {
                   e.stopPropagation();
                   removeElement(id);
@@ -115,7 +115,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
         )}
         <textarea
           ref={textAreaRef}
-          className={`w-full h-full text-[32px] font-bold resize-none bg-transparent outline-none text-center ${
+          className={`h-full w-full resize-none bg-transparent text-center text-[32px] font-bold outline-none ${
             isEditing ? "" : "pointer-events-none"
           }`}
           placeholder="Type your text here"

@@ -7,11 +7,11 @@ interface ResetButtonProps {
 export const ResetButton: React.FC<ResetButtonProps> = ({ onReset }) => {
   return (
     <button
-      className="flex items-center text-red border-b-2 border-red foucus:outline-none gap-2"
+      className="text-red border-red foucus:outline-none flex items-center gap-2 border-b-2"
       onClick={onReset}
     >
       <span className="font-medium">Reset</span>
-      <ResetIcon className="w-6 h-6 text-red" />
+      <ResetIcon className="text-red h-6 w-6" />
     </button>
   );
 };

@@ -5,7 +5,7 @@ export const TextButton: React.FC = () => {
 
   return (
     <button className="btn-action">
-      <TextIcon className="w-32 h-32 text-black75 mt-8" />
+      <TextIcon className="text-black75 mt-8 h-32 w-32" />
       <span className="text-black100 font-medium">Text</span>
     </button>
   );

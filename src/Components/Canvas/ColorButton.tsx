@@ -13,8 +13,8 @@ export const ColorButton: React.FC<ColorButtonProps> = ({
 }) => {
   return (
     <button
-      className={`w-5 h-5 rounded-full ${
-        isSelected ? "border-2 border-black25" : ""
+      className={`h-5 w-5 rounded-full ${
+        isSelected ? "border-black25 border-2" : ""
       }`}
       style={{
         backgroundColor: color,

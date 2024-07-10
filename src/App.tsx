@@ -8,7 +8,7 @@ import html2canvas from "html2canvas";
 
 interface Element {
   id: number;
-  type: string;
+  type: "text" | "image";
   isEditing: boolean;
   textContent: string;
   imageUrl: string;
@@ -22,13 +22,13 @@ function App() {
   const [userBackground, setUserBackground] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const addElement = (type: string, imageUrl?: string) => {
-    if (type === "text" && isTextAdded) return;
-    if (type === "image" && isImageAdded) return;
+  const addElement = (type: "text" | "image", imageUrl?: string) => {
+    if ((type === "text" && isTextAdded) || (type === "image" && isImageAdded))
+      return;
 
     const id = new Date().getTime();
-    setElements([
-      ...elements,
+    setElements((prevElements) => [
+      ...prevElements,
       { id, type, isEditing: true, textContent: "", imageUrl: imageUrl || "" },
     ]);
     if (type === "text") setIsTextAdded(true);
@@ -37,46 +37,28 @@ function App() {
 
   const removeElement = (id: number) => {
     const element = elements.find((element) => element.id === id);
-    const newElements = elements.filter((element) => element.id !== id);
-    setElements(newElements);
+    setElements((prevElements) =>
+      prevElements.filter((element) => element.id !== id),
+    );
 
     if (element?.type === "text") setIsTextAdded(false);
     if (element?.type === "image") setIsImageAdded(false);
   };
 
+  const updateElements = (id: number, update: Partial<Element>) => {
+    setElements((prevElements) =>
+      prevElements.map((element) =>
+        element.id === id ? { ...element, ...update } : element,
+      ),
+    );
+  };
+
   const onElementClick = (id: number | null) => {
-    setElements(
-      elements.map((element) =>
-        element.id === id
-          ? { ...element, isEditing: true }
-          : { ...element, isEditing: false }
-      )
-    );
-  };
-
-  const setTextContent = (id: number, text: string) => {
-    setElements(
-      elements.map((element) =>
-        element.id === id ? { ...element, textContent: text } : element
-      )
-    );
-  };
-
-  const setEditing = (id: number) => {
-    setElements(
-      elements.map((element) =>
-        element.id === id
-          ? { ...element, isEditing: true }
-          : { ...element, isEditing: false }
-      )
-    );
-  };
-
-  const onClickOutside = (id: number) => {
-    setElements(
-      elements.map((element) =>
-        element.id === id ? { ...element, isEditing: false } : element
-      )
+    setElements((prevElements) =>
+      prevElements.map((element) => ({
+        ...element,
+        isEditing: element.id === id ? true : false,
+      })),
     );
   };
 
@@ -120,9 +102,9 @@ function App() {
         background={background}
         userBackground={userBackground}
         onElementClick={onElementClick}
-        setTextContent={setTextContent}
-        setEditing={setEditing}
-        onClickOutside={onClickOutside}
+        setTextContent={(id, text) => updateElements(id, { textContent: text })}
+        setEditing={(id) => updateElements(id, { isEditing: true })}
+        onClickOutside={(id) => updateElements(id, { isEditing: false })}
       />
       <div className="flex flex-col">
         <Header onReset={() => setShowAlert(true)} />

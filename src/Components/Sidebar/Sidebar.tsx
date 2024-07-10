@@ -36,9 +36,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <AddContent />
-      <div className="grid grid-cols-2 gap-4 my-6 border-b-2 border-white98 pb-16">
+      <div className="border-white98 my-6 grid grid-cols-2 gap-4 border-b-2 pb-16">
         <ActionButton
           icon={TextIcon}
           text="Text"
@@ -56,7 +56,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className={`absolute inset-0 w-full h-full opacity-0 ${
+            className={`absolute inset-0 h-full w-full opacity-0 ${
               isImageAdded ? "cursor-not-allowed" : "cursor-pointer"
             }`}
           />
@@ -71,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             type="file"
             accept="image/*"
             onChange={handleBackgroundChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
           />
         </label>
       </div>

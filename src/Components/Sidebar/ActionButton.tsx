@@ -15,7 +15,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
 }) => {
   return (
     <button {...buttonProps} disabled={disabled} className="btn-action">
-      <Icon className="w-32 h-32 text-black75 mt-10" />
+      <Icon className="text-black75 mt-10 h-32 w-32" />
       <span className="text-black100 font-medium">{text}</span>
     </button>
   );
