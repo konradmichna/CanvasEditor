@@ -41,3 +41,7 @@ A simple React-based canvas editor allowing users to add, edit, and remove text 
 ### Final view
 
 ![App Screenshot](photos/finalView.png)
+
+## Demo
+
+[Watch the demo](https://konrad-canvaseditor.netlify.app/)
